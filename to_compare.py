@@ -17,8 +17,8 @@ import pyautogui
 try:
     # Define the base URL
     url = "http://172.16.47.54:8006/livedataname"
-    path = r"D:\screener\custom_screener_dhaval\\"
-            #change_this)
+    path = 'W:/QRT/Python/'
+
 
     def nifty_spot_data(inst_name):
         headers = {
@@ -29,7 +29,7 @@ try:
         return response.json()
 
 
-    def Downloadcurrentdata(historical_data):  # from yf
+    def Downloadcurrentdata(historical_data):
         for symbol in historical_data:
             data = historical_data[symbol]
             new_data = nifty_spot_data(symbol)
@@ -40,10 +40,8 @@ try:
             close = new_data[2]
             data.loc[len(data)] = [date, open, high, low, close, 0, 0, 0, symbol]
             data.set_index("index", inplace=True)
-            # ------------------------------------------------------------
             # data.index = pd.to_datetime(data.index)
             data.index = pd.to_datetime(data.index, utc=True)
-            # ------------------------------------------------------------
             historical_data[symbol] = data
         return historical_data
 
@@ -56,7 +54,6 @@ try:
             start_date = end_date - datetime.timedelta(days=360)
             start_date = start_date.strftime('%Y-%m-%d')
             end_date = end_date.strftime('%Y-%m-%d')
-            # ----------------------------------------------------------------
             df1 = yf.Ticker(df['Ticker'][i])
             history = df1.history(start=start_date, end=end_date)
             one_minute_data = yf.download(df['Ticker'][i], interval='1m', progress=False)
@@ -353,7 +350,7 @@ while datetime.datetime.now() < end_time:
     #             </script>
     #             """'''
 
-    file_path = path + "Stock_Screener_api.html" #change_this
+    file_path = path + "Stock Screener.html"
     with open(file_path, "w") as file:
         file.write(html_str)
     clear_output(wait=True)

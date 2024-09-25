@@ -14,7 +14,7 @@ from IPython.display import HTML, display, clear_output
 
 # Define the base URL
 url = "http://172.16.47.54:8006/livedataname"
-path = 'D:/Newfolder/' #change_this
+path = 'D:/custom_screener/' #change_this
 
 
 def nifty_spot_data(inst_name):
@@ -83,7 +83,6 @@ def PerformanceScanner(data):
     previous_day = previous_day.strftime('%Y-%m-%d')
     name = data['Name'][0].lower()
     hyperlink = f'https://chartink.com/stocks/{name}.html'
-
     data['% Chg'] = round(data['Close'].pct_change() * 100, 2)
     data['52WH'] = data['High'].shift(1).max()
     data['52WL'] = data['Low'].shift(1).min()
@@ -152,7 +151,6 @@ def Scanner(row):
         formatted_row[row.index.get_loc('%_H')] = 'background-color: lightgreen;'
     if distance_from_tlow < 0.09 and distance_from_tlow > 0:
         formatted_row[row.index.get_loc('%_L')] = 'background-color: lightcoral;'
-
     return formatted_row
 
 
