@@ -224,7 +224,7 @@ def render_html(data_frame):
 # Main loop
 def main():
     start_time = datetime.datetime.now().replace(hour=9, minute=15, second=0, microsecond=0)
-    end_time = datetime.datetime.now().replace(hour=17, minute=31, second=0, microsecond=0)
+    end_time = datetime.datetime.now().replace(hour=16, minute=5, second=0, microsecond=0)
 
     # Open the file in the browser once, initially
     webbrowser.open(f'file://{output_path}')
@@ -232,7 +232,12 @@ def main():
     while True:
         if datetime.datetime.now() < end_time:
             try:
-                data_frame = fetch_data()
+                try:
+                    data_frame = fetch_data()
+                except Exception as e:
+                    print('Exception Occured....!', e)
+                    time.sleep(60)
+                    data_frame = fetch_data()
                 render_html(data_frame)
                 time.sleep(10)
             except Exception as e:
@@ -246,3 +251,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
